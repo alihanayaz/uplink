@@ -15,7 +15,8 @@
         {% if request.user.is_authenticated %}
         <a href="{% url 'uplink:account' %}" class="header-item">&#10024; Account</a>
         {% else %}
-        <a href="{% url 'uplink:login' %}" class="header-item">&#10024;	Login</a>
+        <a href="{% url 'uplink:login' %}" class="header-item">&#10024; Log In</a>
+        <a href="{% url 'uplink:signup' %}" class="header-item">&#10024; Sign Up</a>
         {% endif %}
       </header>
       <main>{% block body %} {% endblock %}</main>
