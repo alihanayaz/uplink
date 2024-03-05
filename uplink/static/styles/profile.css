@@ -1,0 +1,50 @@
+.top-container {
+    width: 95%;
+    max-width: 788px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 12px;
+    margin-top: 15px;
+}
+
+.share-button {
+    cursor: pointer;
+}
+
+.profile-container {
+    width: 91%;
+    max-width: 680px;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    mix-blend-mode: multiply;
+}
+
+.tile {
+    width: 100%;
+    background-color: rgb(37,37,37);
+    color: rgb(240,240,240);
+    margin: 7px;
+    border-radius: 17px;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.tile:hover {
+    transition: cubic-bezier(.07, 1.41, .82, 1.41) 0.2s;
+    transform: scale(1.02);
+}
+
+
+.image-container {
+    height: 96px;
+    width: 96px;
+    border-radius: 48px;
+    overflow: hidden;
+}
+
+.image-container img {
+    height: 100%;
+}

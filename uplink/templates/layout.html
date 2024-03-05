@@ -1,0 +1,21 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block title %}{% endblock %}</title>
+    <link href="{% static 'styles/layout.css' %}" rel="stylesheet" />
+    {% block stylesheet %} {% endblock %}
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <a href="{% url 'uplink:index' %}">Uplink</a>
+      </header>
+      <main>{% block body %} {% endblock %}</main>
+      <footer>
+        <p>Uplink &copy; 2024</p>
+      </footer>
+    </div>
+  </body>
+</html>

@@ -1,6 +1,10 @@
 from django.urls import path
 from . import views
 
+app_name = "uplink"
 urlpatterns = [
-    path("", views.home, name="home")
+    path("", views.index, name="index"),
+    path("login", views.login, name="login"),
+    path("account", views.account, name="account"),
+    path("user/<str:name>", views.profile, name="profile")
 ]

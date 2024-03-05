@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block title %}
+{{ name }}
+{% endblock %}
+
+{% block stylesheet %}
+<link href="{% static 'styles/profile.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block body %}
+<div class="top-container">
+    <div class="share-button">Share</div>
+</div>
+<div class="profile-container">
+    <div class="image-container">
+        <img
+                src="{% static 'images/user.jpg' %}"
+                alt="{{ name }} avatar"/>
+    </div>
+    <h1>@{{ name }}</h1>
+    {% if profile %}
+    <h3>{{ profile.location }}</h3>
+    <p>{{ profile.bio }}</p>
+    {% else %}
+    <h3>No profile information yet.</h3>
+    {% endif %}
+    {% for link in links %}
+    <a class="tile" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
+        <p>{{ link.title }}</p>
+    </a>
+    {% empty %}
+    <p>No links yet.</p>
+    {% endfor %}
+</div>
+<script src="{% static 'js/share.js' %}"></script>
+{% endblock %}
