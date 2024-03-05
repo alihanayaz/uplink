@@ -10,22 +10,24 @@
 {% endblock %}
 
 {% block body %}
-<div class="top-container">
+<div class="profile-top-container">
     <div class="share-button">Share</div>
 </div>
 <div class="profile-container">
-    <div class="image-container">
-        <img
-                src="{% static 'images/user.jpg' %}"
-                alt="{{ name }} avatar"/>
-    </div>
-    <h1>@{{ name }}</h1>
-    {% if profile %}
-    <h3>{{ profile.location }}</h3>
-    <p>{{ profile.bio }}</p>
+    <div class="profile-info">
+        <img class="profile-picture" src="{% static 'images/user.jpg' %}" alt="{{ name }} avatar"/>
+        <h1>@{{ name }}</h1>
+        {% if profile %}
+        {% if profile.location %}
+            <span>&#128205;{{ profile.location }}</span>
+        {% endif %}
+        {% if profile.bio %}
+            <p>{{ profile.bio }}</p>
+        {% endif %}
     {% else %}
-    <h3>No profile information yet.</h3>
+        <span>No profile information yet.</span>
     {% endif %}
+    </div>
     {% for link in links %}
     <a class="tile" href="{{ link.url }}" target="_blank" rel="noopener noreferrer">
         <p>{{ link.title }}</p>
