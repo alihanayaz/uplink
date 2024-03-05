@@ -5,5 +5,7 @@ Account
 {% endblock %}
 
 {% block body %}
-Account
+<h2>Welcome {{ request.user.username }}</h2>
+
+<a href="{% url 'uplink:logout' %}">Log Out</a>
 {% endblock %}

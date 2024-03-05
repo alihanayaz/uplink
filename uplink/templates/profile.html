@@ -16,7 +16,7 @@
 <div class="profile-container">
     <div class="profile-info">
         <img class="profile-picture" src="{% static 'images/user.jpg' %}" alt="{{ name }} avatar"/>
-        <h1>@{{ name }}</h1>
+        <h2>@{{ name }}</h2>
         {% if profile %}
         {% if profile.location %}
             <span>&#128205;{{ profile.location }}</span>

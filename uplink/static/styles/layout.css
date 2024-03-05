@@ -1,6 +1,7 @@
 :root {
   --white: #f3f3f1;
   --black: #131315;
+  --bg-white: #fffafa;
 }
 
 * {
@@ -62,6 +63,7 @@ body {
   font-weight: 500;
   line-height: 1.5rem;
   letter-spacing: 0.05rem;
+  padding: 1rem 0;
 }
 
 .container {
@@ -73,15 +75,27 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  margin-bottom: 1.5rem;
+  padding: 1rem 2rem;
+  margin: 0 0.5rem;
+  background-color: var(--bg-white);
+  border-radius: 50px;
 }
+
+.header-logo {
+  margin-right: auto;
+}
+
+.header-item {
+  margin-left: 1rem;
+}
+
 
 main {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 2rem;
 }
 
 footer {
