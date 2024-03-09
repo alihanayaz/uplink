@@ -1,17 +1,22 @@
-{% extends "layout.html" %}
+{% extends "login-layout.html" %}
 
 {% block title %}
 Sign Up
 {% endblock %}
 
 {% block body %}
-
-<h2>Sign Up</h2>
-
-<form action="{% url 'uplink:signup' %}" method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Sign Up</button>
-</form>
-
+<div class="lead">
+    <h2>Join Uplink</h2>
+    <p>Sign up for free!</p>
+</div>
+<div>
+    <form action="{% url 'uplink:signup' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+<div class="footer">
+    <p>Already have an account? <a href="{% url 'uplink:login' %}">Log in</a></p>
+</div>
 {% endblock %}
