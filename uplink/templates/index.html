@@ -1,9 +1,33 @@
 {% extends "layout.html" %}
+{% load static %}
 
 {% block title %}
 Uplink
 {% endblock %}
 
+{% block stylesheet %}
+<link href="{% static 'styles/index.css' %}" rel="stylesheet" />
+{% endblock %}
+
 {% block body %}
-  <h2>Uplink</h2>
+  <div class="section">
+    <div class="card">
+      <h2 class="lead">Streamline Your Online Presence. <br> One Link, Countless Possibilities.</h2>
+    </div>
+    <div class="card"><img src="{% static 'images/link.png' %}"></div>
+  </div>
+  <div class="section section-reversed">
+    <div class="card">
+      <div class="input-area">
+        <div class="input-wrapper">
+          <p><label for="username">uplink/</label></p>
+          <p><input name="username" id="username" placeholder="yourname"></p>
+        </div>
+        <a class="button-wrapper" href="{% url 'uplink:signup' %}">Get Started</a>
+      </div>
+    </div>
+    <div class="card">
+      <span class="lead">Get started in seconds and unlock the full potential of your links!</span>
+    </div>
+  </div>
 {% endblock %}

@@ -1,14 +1,63 @@
-{% extends "layout.html" %}
+{% extends "account-layout.html" %}
+{% load static %}
 
 {% block title %}
 Account
 {% endblock %}
 
 {% block body %}
-<h2>Welcome {{ username }}!</h2>
-
-<a href="{% url 'uplink:edit_profile' %}">Edit Profile</a>
-<a href="{% url 'uplink:manage_links' %}">Manage Links</a>
-
-<a href="{% url 'uplink:logout' %}">Log Out</a>
+<div class="welcome">
+    <h2>Welcome {{ username }}!</h2>
+    <div>
+        <span>Your Uplink is live: uplink/{{ username }}</span>
+        <span>Share your profile to your socials</span>
+        <span class="share-button" data-link="{{ username }}">Copy URL</span>
+    </div>
+</div>
+<div class="section">
+    <div class="card">
+        <div class="info">
+            <h3>Edit Profile</h3>
+            <span class="info">Update your profile information</span>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <button type="submit" name="edit-profile">Save Profile</button>
+        </form>
+    </div>
+    <div class="section">
+        <div class="card">
+            <div class="info">
+                <h3>Manage Links</h3>
+                <span>Customize your Uplink</span>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ link_form.as_p }}
+                <button type="submit" name="add-link">Add Link</button>
+            </form>
+        </div>
+        {% if links %}
+        <div class="card">
+            <div class="info">
+                <h3>Existing Links</h3>
+                <span>View and delete your existing links</span>
+            </div>
+            <ul>
+            {% for link in links %}
+                <li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <a href="{{ link.url }}">{{ link.title }}</a>
+                        <button type="submit" name="delete-link" value="{{ link.id }}">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'js/share.js' %}"></script>
 {% endblock %}

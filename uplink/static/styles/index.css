@@ -1,0 +1,97 @@
+.section {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  place-items: center;
+  gap: 0.5rem;
+  margin: 0.5rem 0;
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: 1fr 0.7fr;
+  }
+}
+
+.section-reversed {
+  grid-template-columns: 1fr;
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: 0.7fr 1fr;
+  }
+}
+
+.card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2.5rem 1.5rem;
+  gap: 2rem;
+}
+
+.card > h2 {
+  font-size: clamp(32px, 8.5vmin, 88px);
+  line-height: 1.05;
+}
+
+.card .lead {
+  font-size: clamp(28px, 8vmin, 56px);
+  line-height: 1.05;
+}
+
+.card > img {
+  width: 50%;
+
+  @media screen and (min-width: 992px) {
+    width: 100%;
+  }
+}
+
+.input-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.input-area .input-wrapper {
+  background: var(--bg-white);
+  display: flex;
+  padding: 1rem;
+  border-radius: 50px;
+  border: 2px solid var(--blue);
+}
+
+.input-area .input-wrapper:focus-within {
+  border: 2px solid var(--light-black);
+}
+
+.input-area .input-wrapper p input {
+  width: 100%;
+  border: none;
+  font-size: 1.125rem;
+  background-color: var(--bg-white);
+  border-radius: 50px;
+}
+
+.input-area .input-wrapper input:focus {
+  outline: none;
+}
+
+.input-area .input-wrapper input::placeholder {
+  font-size: 1.125rem;
+}
+
+.input-area .button-wrapper {
+  display: flex;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  color: var(--bg-white);
+  background-color: var(--blue);
+}
+
+.input-area .button-wrapper:hover {
+  background: var(--light-black);
+  transition: 0.2s;
+}
