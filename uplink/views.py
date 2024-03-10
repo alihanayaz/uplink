@@ -10,9 +10,9 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('uplink:account')
@@ -44,25 +44,21 @@ def signup_view(request):
 @login_required
 def account(request):
     user = request.user
-    links = request.user.links.all()
+    links = user.links.all()
 
-    # get user profile
     try:
-        profile = user.userprofile
+        profile = user.profile
     except UserProfile.DoesNotExist:
         profile = None
-        
-    profile_form = UserProfileForm(instance=profile)
 
     # handle form submissions
     if request.method == "POST":
         if "edit-profile" in request.POST:
-            if profile is not None:
-                profile_form = UserProfileForm(request.POST, instance=profile)
-            else:
-                profile_form = UserProfileForm(request.POST)
+            profile_form = UserProfileForm(request.POST, instance=profile)
             if profile_form.is_valid():
-                profile_form.save()
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
                 return redirect('uplink:account')
         if "add-link" in request.POST:
             form = LinkForm(request.POST)
@@ -77,6 +73,7 @@ def account(request):
             link.delete()
             return redirect('uplink:account')
     else:
+        profile_form = UserProfileForm(instance=profile)
         link_form = LinkForm()
 
     context = {
@@ -92,7 +89,7 @@ def profile(request, name):
     user = get_object_or_404(CustomUser, username=name)
 
     try:
-        profile = user.userprofile
+        profile = user.profile
     except UserProfile.DoesNotExist:
         profile = None
 
