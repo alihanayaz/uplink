@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, UserProfile, Link
-from .forms import UserProfileForm, LinkForm, CustomUserCreationForm
+from .forms import UserProfileForm, LinkForm, CustomUserCreationForm, PasswordChangeForm
 
 # Create your views here.
 def index(request):
@@ -50,6 +50,18 @@ def account(request):
         profile = user.profile
     except UserProfile.DoesNotExist:
         profile = None
+        
+    profile_form = UserProfileForm(instance=profile)
+    link_form = LinkForm()
+    password_form = PasswordChangeForm(user)
+    
+    context = {
+        'username': user.username,
+        'profile_form': profile_form,
+        'link_form': link_form,
+        'links': links,
+        'password_form': password_form,
+    }
 
     # handle form submissions
     if request.method == "POST":
@@ -61,9 +73,9 @@ def account(request):
                 profile.save()
                 return redirect('uplink:account')
         if "add-link" in request.POST:
-            form = LinkForm(request.POST)
-            if form.is_valid():
-                link = form.save(commit=False)
+            link_form = LinkForm(request.POST)
+            if link_form.is_valid():
+                link = link_form.save(commit=False)
                 link.user = user
                 link.save()
                 return redirect('uplink:account')
@@ -72,16 +84,15 @@ def account(request):
             link = get_object_or_404(Link, id=link_id, user=user)
             link.delete()
             return redirect('uplink:account')
-    else:
-        profile_form = UserProfileForm(instance=profile)
-        link_form = LinkForm()
+        elif "change-password" in request.POST:
+            password_form = PasswordChangeForm(user, request.POST)
+            if password_form.is_valid():
+                password_form.save()
+                return redirect('uplink:account')
+            else:
+                context['password_form'] = password_form
+                return render(request, "account.html", context)
 
-    context = {
-        'username': user.username,
-        'profile_form': profile_form,
-        'link_form': link_form,
-        'links': links
-    }
 
     return render(request, "account.html", context)
 

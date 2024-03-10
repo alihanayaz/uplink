@@ -1,5 +1,5 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .models import CustomUser, UserProfile, Link
 
 class CustomUserCreationForm(UserCreationForm):
@@ -16,3 +16,8 @@ class LinkForm(forms.ModelForm):
     class Meta:
         model = Link
         fields = ['title', 'url']
+
+class CustomPasswordChangeForm(PasswordChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ['password']
