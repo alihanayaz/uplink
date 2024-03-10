@@ -1,14 +1,29 @@
-{% extends "layout.html" %}
+{% extends "account-layout.html" %}
+{% load static %}
 
 {% block title %}
 Account
 {% endblock %}
 
 {% block body %}
-<h2>Welcome {{ username }}!</h2>
+<div class="welcome">
+    <h2>Welcome {{ username }}!</h2>
+    <div>
+        <span>Your Uplink is live: uplink/{{ username }}</span>
+        <span>Share your profile to your socials</span>
+        <span class="share-button" data-link="{{ username }}">Copy URL</span>
+    </div>
+</div>
 
-<a href="{% url 'uplink:edit_profile' %}">Edit Profile</a>
-<a href="{% url 'uplink:manage_links' %}">Manage Links</a>
-
-<a href="{% url 'uplink:logout' %}">Log Out</a>
+<div class="section">
+    <a class="card" href="{% url 'uplink:edit_profile' %}">
+        <span>Edit Profile</span>
+        <span>Update your profile information</span>
+    </a>
+    <a class="card" href="{% url 'uplink:manage_links' %}">
+        <span>Manage Links</span>
+        <span>Customize your Uplink</span>
+    </a>
+</div>
+<script src="{% static 'js/share.js' %}"></script>
 {% endblock %}

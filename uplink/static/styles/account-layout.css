@@ -1,0 +1,116 @@
+.container {
+  min-height: 100dvh;
+  width: 100%;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+main {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  padding: 2rem;
+  gap: 2rem;
+
+  background-color: var(--bg-white);
+
+  @media screen and (min-width: 992px) {
+    padding: 3rem;
+  }
+}
+
+/*  */
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  padding: 1rem 0.5rem;
+  background-color: var(--light-blue);
+  border-radius: 1.5rem;
+  font-size: 1rem;
+}
+
+.welcome > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+  padding: 0 1rem;
+  gap: 1rem;
+  width: 100%;
+
+  @media screen and (min-width: 992px) {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.welcome > div > span:first-child {
+  margin-right: 0;
+
+  @media screen and (min-width: 992px) {
+    margin-right: auto;
+  }
+}
+
+.welcome .share-button {
+  background-color: var(--bg-white);
+  padding: 0.5rem 1rem;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.welcome .share-button:hover {
+  background-color: var(--light-black);
+  color: var(--bg-white);
+  transition: 0.3s;
+}
+
+/*  */
+
+.section {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  place-items: center;
+  gap: 1rem 0.5rem;
+  width: 100%;
+  background-color: var(--bg-white);
+  border-radius: 10px;
+
+  @media screen and (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  @media screen and (min-width: 992px) {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 2rem;
+  padding: 1rem;
+  width: 90%;
+  height: 250px;
+  background-color: var(--light-blue);
+  border-radius: 10px;
+}

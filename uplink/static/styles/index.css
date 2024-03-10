@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto;
+  place-items: center;
   gap: 0.5rem;
   margin: 0.5rem 0;
 
@@ -19,6 +20,7 @@
 }
 
 .card {
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
