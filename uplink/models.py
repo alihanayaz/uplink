@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.core.validators import RegexValidator
 
 # Create your models here.
 class CustomUserManager(BaseUserManager):
@@ -26,7 +27,13 @@ class CustomUserManager(BaseUserManager):
         return self.create_user(username, email, password, **extra_fields)
     
 class CustomUser(AbstractBaseUser, PermissionsMixin):
-    username = models.CharField(max_length=30, unique=True)
+    username_validator = RegexValidator(
+        regex='^[a-zA-Z0-9]+$',
+        message='Username must contain only alphanumeric characters.',
+        code='invalid_username'
+    )
+    
+    username = models.CharField(max_length=30, unique=True, validators=[username_validator])
     email = models.EmailField(unique=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
