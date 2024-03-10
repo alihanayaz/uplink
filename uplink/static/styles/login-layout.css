@@ -84,10 +84,15 @@ form > p {
 
 form input {
   padding: 1rem;
-  border: 1px solid var(--bg-light);
+  border: 1px solid var(--blue);
   width: 100%;
   border-radius: 10px;
   font-size: 1.2rem;
+}
+
+form input:focus {
+  outline: none;
+  border: 2px solid var(--light-black);
 }
 
 form button {
@@ -104,6 +109,7 @@ form button {
 
 form button:hover {
   background-color: var(--light-black);
+  transition: 0.2s;
 }
 
 .footer {
@@ -125,10 +131,12 @@ form button:hover {
 
 ul > li {
   font-size: 0.75rem;
+  color: var(--text-gray);
 }
 
 .helptext {
   font-size: 0.75rem;
+  color: var(--text-gray);
 }
 
 .errorlist > *::before {

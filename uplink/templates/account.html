@@ -14,16 +14,50 @@ Account
         <span class="share-button" data-link="{{ username }}">Copy URL</span>
     </div>
 </div>
-
 <div class="section">
-    <a class="card" href="{% url 'uplink:edit_profile' %}">
-        <span>Edit Profile</span>
-        <span>Update your profile information</span>
-    </a>
-    <a class="card" href="{% url 'uplink:manage_links' %}">
-        <span>Manage Links</span>
-        <span>Customize your Uplink</span>
-    </a>
+    <div class="card">
+        <div class="info">
+            <h3>Edit Profile</h3>
+            <span class="info">Update your profile information</span>
+        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ profile_form.as_p }}
+            <button type="submit" name="edit-profile">Save Profile</button>
+        </form>
+    </div>
+    <div class="section">
+        <div class="card">
+            <div class="info">
+                <h3>Manage Links</h3>
+                <span>Customize your Uplink</span>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ link_form.as_p }}
+                <button type="submit" name="add-link">Add Link</button>
+            </form>
+        </div>
+        {% if links %}
+        <div class="card">
+            <div class="info">
+                <h3>Existing Links</h3>
+                <span>View and delete your existing links</span>
+            </div>
+            <ul>
+            {% for link in links %}
+                <li>
+                    <form method="post">
+                        {% csrf_token %}
+                        <a href="{{ link.url }}">{{ link.title }}</a>
+                        <button type="submit" name="delete-link" value="{{ link.id }}">Delete</button>
+                    </form>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
 </div>
 <script src="{% static 'js/share.js' %}"></script>
 {% endblock %}

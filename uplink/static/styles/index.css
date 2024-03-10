@@ -93,5 +93,5 @@
 
 .input-area .button-wrapper:hover {
   background: var(--light-black);
-  transition: 0.3s;
+  transition: 0.2s;
 }

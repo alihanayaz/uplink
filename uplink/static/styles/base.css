@@ -5,6 +5,8 @@
   --light-black: #393e46;
   --blue: #00adb5;
   --light-blue: #dfe8f9;
+  --text-gray: #808080;
+  --danger: #dc3545;
   --gradient: linear-gradient(
       180deg,
       rgba(255, 255, 255, 0.01),

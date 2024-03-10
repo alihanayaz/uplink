@@ -74,32 +74,25 @@ main {
   cursor: pointer;
 }
 
-.welcome .share-button:hover {
+.welcome .share-button:hover, button:hover {
   background-color: var(--light-black);
   color: var(--bg-white);
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 /*  */
 
 .section {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-template-rows: auto;
-  place-items: center;
-  gap: 1rem 0.5rem;
-  width: 100%;
-  background-color: var(--bg-white);
-  border-radius: 10px;
-
-  @media screen and (min-width: 768px) {
-    grid-template-columns: 1fr 1fr;
-  }
-
-  @media screen and (min-width: 992px) {
-    grid-template-columns: 1fr 1fr 1fr;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 90%;
+  gap: 1rem;
+  border-top: 1px solid var(--blue);
 }
+
+/*  */
 
 .card {
   display: flex;
@@ -107,10 +100,75 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  gap: 2rem;
-  padding: 1rem;
   width: 90%;
-  height: 250px;
-  background-color: var(--light-blue);
+  padding: 2rem 1rem;
+  gap: 1rem;
+}
+
+.card .info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.card .info h3 {
+  font-size: 1.5rem;
+}
+
+.card .info span {
+  font-size: 0.8rem;
+  color: var(--text-gray);
+}
+
+/*  */
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+form > p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+
+form input {
+  padding: 1rem;
+  border: 1px solid var(--blue);
+  width: 100%;
   border-radius: 10px;
+  font-size: 1.1rem;
+}
+
+form button {
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  padding: 1rem;
+  background-color: var(--blue);
+  color: var(--bg-white);
+  cursor: pointer;
+}
+
+/*  */
+
+li > form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 0.5rem;
+}
+
+li > form > button {
+  padding: 0.5rem;
+  font-size: 1rem;
+  background-color: var(--danger);
 }

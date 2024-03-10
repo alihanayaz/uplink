@@ -46,50 +46,49 @@ def signup_view(request):
 @login_required
 def account(request):
     user = request.user
-    context = {
-        'username': user.username,
-    }
-    return render(request, "account.html", context)
+    links = request.user.links.all()
 
-@login_required
-def edit_profile(request):
-    user = request.user
+    # get user profile
     try:
         profile = user.userprofile
     except UserProfile.DoesNotExist:
         profile = None
-    if request.method == "POST":
-        if profile is not None:
-            form = UserProfileForm(request.POST, instance=profile)
-        else:
-            form = UserProfileForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('uplink:account')
-    else:
-        form = UserProfileForm(instance=profile)
-    return render(request, 'edit-profile.html', {'form': form})
+        
+    profile_form = UserProfileForm(instance=profile)
 
-@login_required
-def manage_links(request):
-    user = request.user
-    links = request.user.links.all()
+    # handle form submissions
     if request.method == "POST":
+        if "edit-profile" in request.POST:
+            if profile is not None:
+                profile_form = UserProfileForm(request.POST, instance=profile)
+            else:
+                profile_form = UserProfileForm(request.POST)
+            if profile_form.is_valid():
+                profile_form.save()
+                return redirect('uplink:account')
         if "add-link" in request.POST:
             form = LinkForm(request.POST)
             if form.is_valid():
                 link = form.save(commit=False)
                 link.user = user
                 link.save()
-                return redirect('uplink:manage_links')
+                return redirect('uplink:account')
         elif "delete-link" in request.POST:
             link_id = request.POST.get("delete-link")
             link = get_object_or_404(Link, id=link_id, user=user)
             link.delete()
-            return redirect('uplink:manage_links')
+            return redirect('uplink:account')
     else:
-        form = LinkForm()
-    return render(request, 'manage-links.html', {'form': form, 'links': links})
+        link_form = LinkForm()
+
+    context = {
+        'username': user.username,
+        'profile_form': profile_form,
+        'link_form': link_form,
+        'links': links
+    }
+
+    return render(request, "account.html", context)
 
 def profile(request, name):
     user = get_object_or_404(User, username=name)
