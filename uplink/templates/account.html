@@ -43,6 +43,11 @@ Account
             <div class="info">
                 <h3>Existing Links</h3>
                 <span>View and delete your existing links</span>
+                {% if add_link_message %}
+                    <ul class="errorlist">
+                        <li>{{ add_link_message }}</li>
+                    </ul>
+                {% endif %}
             </div>
             <ul>
             {% for link in links %}

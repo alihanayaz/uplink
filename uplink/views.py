@@ -45,6 +45,7 @@ def signup_view(request):
 def account(request):
     user = request.user
     links = user.links.all()
+    link_limit = 5
 
     try:
         profile = user.profile
@@ -73,6 +74,9 @@ def account(request):
                 profile.save()
                 return redirect('uplink:account')
         if "add-link" in request.POST:
+            if links.count() >= link_limit:
+                context['add_link_message'] = f'You can only have {link_limit} links.'
+                return render(request, "account.html", context)
             link_form = LinkForm(request.POST)
             if link_form.is_valid():
                 link = link_form.save(commit=False)
