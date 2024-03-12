@@ -5,6 +5,12 @@ from .models import CustomUser, UserProfile, Link
 from .forms import UserProfileForm, LinkForm, CustomUserCreationForm, CustomPasswordChangeForm
 
 # Create your views here.
+def error_404_view(request, exception):
+    return render(request, "404.html")
+
+def error_500_view(request):
+    return render(request, "500.html")
+
 def index(request):
     return render(request, "index.html")
 
