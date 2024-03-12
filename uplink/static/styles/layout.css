@@ -11,6 +11,13 @@ header {
   margin: 0 0.5rem;
   background-color: var(--bg-white);
   border-radius: 50px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.sticky {
+  position: sticky;
+  top: 2rem;
+  z-index: 100;
 }
 
 header > a {
@@ -45,6 +52,7 @@ header .header-item {
 }
 
 main {
+  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;

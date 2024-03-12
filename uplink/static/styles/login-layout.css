@@ -1,4 +1,5 @@
 .container {
+  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
 
@@ -8,6 +9,7 @@
 }
 
 main {
+  min-height: 100vh;
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
@@ -113,18 +115,18 @@ form button:hover {
 }
 
 .footer {
-    text-align: center;
-    margin-top: 2rem;
+  text-align: center;
+  margin-top: 2rem;
 }
 
 .footer a {
-    color: var(--blue);
-    text-decoration: none;
+  color: var(--blue);
+  text-decoration: none;
 }
 
 .footer a:hover {
-    text-decoration: underline;
-    color: var(--light-black);
+  text-decoration: underline;
+  color: var(--light-black);
 }
 
 /*  */

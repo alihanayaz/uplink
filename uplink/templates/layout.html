@@ -11,7 +11,7 @@
   </head>
   <body>
     <div class="container">
-      <header>
+      <header class="sticky">
         <a href="{% url 'uplink:index' %}" class="header-logo"><h1>&#127385; Uplink</h1></a>
         {% if request.user.is_authenticated %}
         <a href="{% url 'uplink:account' %}" class="header-item">Account</a>
