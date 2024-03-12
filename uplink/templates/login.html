@@ -16,8 +16,8 @@ Log In
     <form action="{% url 'uplink:login' %}" method="post">
         {% csrf_token %}
         <p>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username">
+            <label for="email">Email:</label>
+            <input type="text" id="email" name="email">
         </p>
         <p>
             <label for="password">Password:</label>

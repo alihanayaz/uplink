@@ -132,6 +132,7 @@ form button:hover {
 ul > li {
   font-size: 0.75rem;
   color: var(--text-gray);
+  text-align: left;
 }
 
 .helptext {

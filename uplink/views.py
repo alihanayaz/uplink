@@ -1,10 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile, Link
-from .forms import UserProfileForm, LinkForm
+from .models import CustomUser, UserProfile, Link
+from .forms import UserProfileForm, LinkForm, CustomUserCreationForm, PasswordChangeForm
 
 # Create your views here.
 def index(request):
@@ -12,9 +10,9 @@ def index(request):
 
 def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(request, username=username, password=password)
+        user = authenticate(request, email=email, password=password)
         if user is not None:
             login(request, user)
             return redirect('uplink:account')
@@ -34,42 +32,50 @@ def logout_view(request):
 
 def signup_view(request):
     if request.method == "POST":
-        form = UserCreationForm(request.POST)
+        form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('uplink:account')
     else:
-        form = UserCreationForm()
+        form = CustomUserCreationForm()
     return render(request, "signup.html", {"form": form})
 
 @login_required
 def account(request):
     user = request.user
-    links = request.user.links.all()
+    links = user.links.all()
 
-    # get user profile
     try:
-        profile = user.userprofile
+        profile = user.profile
     except UserProfile.DoesNotExist:
         profile = None
         
     profile_form = UserProfileForm(instance=profile)
+    link_form = LinkForm()
+    password_form = PasswordChangeForm(user)
+    
+    context = {
+        'username': user.username,
+        'profile_form': profile_form,
+        'link_form': link_form,
+        'links': links,
+        'password_form': password_form,
+    }
 
     # handle form submissions
     if request.method == "POST":
         if "edit-profile" in request.POST:
-            if profile is not None:
-                profile_form = UserProfileForm(request.POST, instance=profile)
-            else:
-                profile_form = UserProfileForm(request.POST)
+            profile_form = UserProfileForm(request.POST, instance=profile)
             if profile_form.is_valid():
-                profile_form.save()
+                profile = profile_form.save(commit=False)
+                profile.user = user
+                profile.save()
                 return redirect('uplink:account')
         if "add-link" in request.POST:
-            form = LinkForm(request.POST)
-            if form.is_valid():
-                link = form.save(commit=False)
+            link_form = LinkForm(request.POST)
+            if link_form.is_valid():
+                link = link_form.save(commit=False)
                 link.user = user
                 link.save()
                 return redirect('uplink:account')
@@ -78,23 +84,23 @@ def account(request):
             link = get_object_or_404(Link, id=link_id, user=user)
             link.delete()
             return redirect('uplink:account')
-    else:
-        link_form = LinkForm()
+        elif "change-password" in request.POST:
+            password_form = PasswordChangeForm(user, request.POST)
+            if password_form.is_valid():
+                password_form.save()
+                return redirect('uplink:account')
+            else:
+                context['password_form'] = password_form
+                return render(request, "account.html", context)
 
-    context = {
-        'username': user.username,
-        'profile_form': profile_form,
-        'link_form': link_form,
-        'links': links
-    }
 
     return render(request, "account.html", context)
 
 def profile(request, name):
-    user = get_object_or_404(User, username=name)
+    user = get_object_or_404(CustomUser, username=name)
 
     try:
-        profile = user.userprofile
+        profile = user.profile
     except UserProfile.DoesNotExist:
         profile = None
 

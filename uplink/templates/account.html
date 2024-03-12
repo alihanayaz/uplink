@@ -9,7 +9,7 @@ Account
 <div class="welcome">
     <h2>Welcome {{ username }}!</h2>
     <div>
-        <span>Your Uplink is live: uplink/{{ username }}</span>
+        <span>Your Uplink is live</span>
         <span>Share your profile to your socials</span>
         <span class="share-button" data-link="{{ username }}">Copy URL</span>
     </div>
@@ -57,6 +57,19 @@ Account
             </ul>
         </div>
         {% endif %}
+    </div>
+    <div class="section">
+        <div class="card">
+            <div class="info">
+                <h3>Change Password</h3>
+                <span>Update your password</span>
+            </div>
+            <form method="post">
+                {% csrf_token %}
+                {{ password_form.as_p }}
+                <button type="submit" name="change-password">Change Password</button>
+            </form>
+        </div>
     </div>
 </div>
 <script src="{% static 'js/share.js' %}"></script>
