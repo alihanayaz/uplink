@@ -2,7 +2,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, UserProfile, Link
-from .forms import UserProfileForm, LinkForm, CustomUserCreationForm, PasswordChangeForm
+from .forms import UserProfileForm, LinkForm, CustomUserCreationForm, CustomPasswordChangeForm
 
 # Create your views here.
 def index(request):
@@ -54,7 +54,7 @@ def account(request):
         
     profile_form = UserProfileForm(instance=profile)
     link_form = LinkForm()
-    password_form = PasswordChangeForm(user)
+    password_form = CustomPasswordChangeForm(user)
     
     context = {
         'username': user.username,
@@ -89,7 +89,7 @@ def account(request):
             link.delete()
             return redirect('uplink:account')
         elif "change-password" in request.POST:
-            password_form = PasswordChangeForm(user, request.POST)
+            password_form = CustomPasswordChangeForm(user, request.POST)
             if password_form.is_valid():
                 password_form.save()
                 return redirect('uplink:account')

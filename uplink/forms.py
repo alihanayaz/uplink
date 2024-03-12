@@ -3,6 +3,10 @@ from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
 from .models import CustomUser, UserProfile, Link
 
 class CustomUserCreationForm(UserCreationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['email'].widget.attrs.pop('autofocus', None)
+
     class Meta:
         model = CustomUser
         fields = ['username', 'email']
@@ -18,6 +22,10 @@ class LinkForm(forms.ModelForm):
         fields = ['title', 'url']
 
 class CustomPasswordChangeForm(PasswordChangeForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['old_password'].widget.attrs.pop('autofocus', None)
+
     class Meta:
         model = CustomUser
         fields = ['password']
