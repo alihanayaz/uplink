@@ -195,3 +195,13 @@ ul > li {
   content: "❌ ";
   display: inline;
 }
+
+/*  */
+
+.danger-text {
+  color: var(--danger);
+}
+
+.danger-button {
+  background-color: var(--danger);
+}

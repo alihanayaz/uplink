@@ -96,6 +96,9 @@ def account(request):
             else:
                 context['password_form'] = password_form
                 return render(request, "account.html", context)
+        elif "delete-account" in request.POST:
+            user.delete()
+            return redirect('uplink:index')
 
 
     return render(request, "account.html", context)
