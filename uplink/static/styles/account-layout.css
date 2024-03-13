@@ -132,6 +132,7 @@ form {
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
+  width: 250px;
 }
 
 form > p {
@@ -166,7 +167,7 @@ li > form {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   margin-bottom: 0.5rem;
 }
 
@@ -174,6 +175,7 @@ li > form > button {
   padding: 0.5rem;
   font-size: 1rem;
   background-color: var(--danger);
+  width: 100px;
 }
 
 /*  */
@@ -192,4 +194,14 @@ ul > li {
 .errorlist > *::before {
   content: "❌ ";
   display: inline;
+}
+
+/*  */
+
+.danger-text {
+  color: var(--danger);
+}
+
+.danger-button {
+  background-color: var(--danger);
 }
