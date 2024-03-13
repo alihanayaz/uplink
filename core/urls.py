@@ -16,8 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from decouple import config
 
 urlpatterns = [
     path('', include("uplink.urls")),
-    path('admin/', admin.site.urls),
 ]
+
+if config('DEBUG', default=False, cast=bool):
+    from django.contrib import admin
+    urlpatterns.append(path('admin/', admin.site.urls))
