@@ -9,6 +9,9 @@ Sign Up
     <h2>Join Uplink</h2>
     <p>Sign up for free!</p>
 </div>
+{% if message %}
+<div class="errorlist"><span>{{ message }}</span></div>
+{% endif %}
 <div>
     <form action="{% url 'uplink:signup' %}" method="post">
         {% csrf_token %}
