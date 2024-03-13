@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from .models import CustomUser, UserProfile, Link
 from .forms import UserProfileForm, LinkForm, CustomUserCreationForm, CustomPasswordChangeForm
+import json
 
 # Create your views here.
 def error_404_view(request, exception):
@@ -37,15 +38,25 @@ def logout_view(request):
     })
 
 def signup_view(request):
+    form = CustomUserCreationForm()
     if request.method == "POST":
+        username = request.POST.get("username")
+        if is_username_inappropriate(username):
+            message = "Sorry, we couldn't process your request. Please try again with a different username."
+            return render(request, "signup.html", {"form": form, "message": message})
+
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
             login(request, user)
             return redirect('uplink:account')
-    else:
-        form = CustomUserCreationForm()
     return render(request, "signup.html", {"form": form})
+
+def is_username_inappropriate(username):
+    inappropriate_words_file = 'uplink/static/data/bad-words-en.json'
+    with open(inappropriate_words_file) as json_file:
+        inappropriate_words = json.load(json_file)
+        return username in inappropriate_words
 
 @login_required
 def account(request):
